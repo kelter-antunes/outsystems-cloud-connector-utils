@@ -1,0 +1,21 @@
+version: '3'
+services:
+  outsystemscc:
+    image: ghcr.io/outsystems/outsystemscc:latest
+    container_name: outsystemscc
+    command:
+      - "--header"
+      - "token:${GATEWAY_TOKEN}"
+      - "https://${ODC_TENANT_PREFIX}.outsystems.app/${GATEWAY_SUFFIX}"
+      - "R:8081:${REMOTE_HOST_1}:${REMOTE_PORT_1}"
+      # You can create a tunnel to connect multiple endpoints to the same Private Gateway.
+      # - "R:8082:${REMOTE_HOST_2}:${REMOTE_PORT_2}"
+    restart: always
+    environment:
+      - GATEWAY_TOKEN=${GATEWAY_TOKEN}
+      - ODC_TENANT_PREFIX=${ODC_TENANT_PREFIX}
+      - GATEWAY_SUFFIX=${GATEWAY_SUFFIX}
+      - REMOTE_HOST_1=${REMOTE_HOST_1}
+      - REMOTE_PORT_1=${REMOTE_PORT_1}
+      - REMOTE_HOST_2=${REMOTE_HOST_2}
+      - REMOTE_PORT_2=${REMOTE_PORT_2}
